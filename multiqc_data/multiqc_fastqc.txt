@@ -1,0 +1,2 @@
+Sample	Filename	File type	Encoding	Total Sequences	Sequences flagged as poor quality	Sequence length	%GC	total_deduplicated_percentage	avg_sequence_length	basic_statistics	per_base_sequence_quality	per_sequence_quality_scores	per_base_sequence_content	per_sequence_gc_content	per_base_n_content	sequence_length_distribution	sequence_duplication_levels	overrepresented_sequences	adapter_content
+BC27	BC27.fastq.gz	Conventional base calls	Sanger / Illumina 1.9	53695.0	0.0	7-5348	43.0	80.31101592327032	1380.4447341465686	pass	fail	fail	fail	fail	pass	warn	pass	fail	pass

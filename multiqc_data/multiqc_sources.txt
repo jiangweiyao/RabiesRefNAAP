@@ -1,0 +1,2 @@
+Module	Section	Sample Name	Source
+FastQC	all_sections	BC27	/scicomp/home-pure/pqq7/seqtkrabies/BC27_fastqc.zip
