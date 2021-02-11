@@ -48,8 +48,11 @@ def main():
     Avelenght2_cmd = subprocess.Popen(['awk', '{ sum_length += length($10) } END { print sum_length/NR }'], stdin=Avelenght1_cmd.stdout, stdout=subprocess.PIPE)
     avelength = (str(Avelenght2_cmd.communicate()[0].rstrip(), 'utf-8'))
     print(avelength)
+    f = open(args.Output, "w")
+    f.writelines(["filename", "\t", "reads", "\t", "mapped", "\t", "ncov", "\t", "gcov", "\t", "avelength", "\n"])
+    f.writelines([os.path.splitext(os.path.basename(args.Input))[0], "\t", reads, "\t", mapped, "\t", ncov, "\t", gcov, "\t", avelength])
 
-
+    f.close()
 
 if __name__ == "__main__":
     sys.exit(main())
