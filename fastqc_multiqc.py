@@ -21,7 +21,7 @@ def main():
     print(files)
 
     OutputFolder = os.path.expanduser(args.OutputFolder)
-    os.system(f"mkdir -p {OutputFolder}")
+    os.makedirs(OutputFolder, exist_ok=True)
 
 
     for i in range(0, len(files)):
