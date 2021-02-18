@@ -4,14 +4,12 @@ import sys
 import os
 import glob
 import re
-import pandas as pd
-from tabulate import tabulate
 from datetime import date
 from gooey import Gooey, GooeyParser
 import subprocess
 from pathlib import Path
 
-@Gooey(program_name='RefMAAP', 
+@Gooey(program_name='RefNAAP', 
         default_size=(720, 900),
         progress_regex=r"^progress: (?P<current>\d+)/(?P<total>\d+)$",
         progress_expr="current / total * 100")
@@ -62,8 +60,8 @@ def main():
 
 
         #Get coverage
-        subprocess.check_output(['python', local_path+'/rabiescoverage.py', '-i', filec2, '-o', args.OutputFolder+'/'+base+"_coverage/"+base+"_coverage.txt", '-t', str(args.threads)])
-        subprocess.check_output(['cp', args.OutputFolder+'/'+base+"_coverage/"+base+"_coverage.txt", args.OutputFolder+'/'+base+"_coverage.txt"])
+        subprocess.check_output(['python', local_path+'/rabiescoverage.py', '-i', filec2, '-o', args.OutputFolder+'/coverage/'+base+"_coverage/"+base+"_coverage.txt", '-t', str(args.threads)])
+        subprocess.check_output(['cp', args.OutputFolder+'/coverage/'+base+"_coverage/"+base+"_coverage.txt", args.OutputFolder+'/'+base+"_coverage.txt"])
 
         #Get assembly
         subprocess.check_output(['python', local_path+'/refnaap_cli.py', '-i', filec2, '-o', args.OutputFolder+'/assembly/'+base+"_assembly/", '-t', str(args.threads), '--TopN', str(args.TopN), '--MinCov', str(args.MinCov)])
@@ -73,10 +71,13 @@ def main():
 
         print("progress: {}/{}".format(i+1, len(files)))
 
+    
 
-    #if not args.verbose:
-    #    os.system(f"rm -rf {qc_dir}")
-    #    os.system(f"rm -rf {assembly_dir}")
+    if not args.verbose:
+        subprocess.check_output(['rm', '-rf', args.OutputFolder+'/coverage'])
+        subprocess.check_output(['rm', '-rf', args.OutputFolder+'/assembly'])
+        subprocess.check_output(['rm', '-rf', args.OutputFolder+'/filtered'])
+        subprocess.check_output(['rm', '-rf', args.OutputFolder+'/multiqc'])
 
 if __name__ == "__main__":
     sys.exit(main())
