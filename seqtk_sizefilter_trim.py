@@ -26,11 +26,11 @@ def main():
     os.makedirs(OutputFolder, exist_ok=True)
 
     f = open(OutputFolder+"/filteredintaaaaaa.fq", "w")
-    subprocess.call(["seqtk", "seq", "-L", str(args.Size), args.Input], stdout=f)
+    subprocess.call(["seqtk", "trimfq", "-b", str(args.Left), "-e", str(args.Right), args.Input], stdout=f)
     f.close()
 
     f = open(args.Output, "w")
-    subprocess.call(["seqtk", "trimfq", "-b", str(args.Left), "-e", str(args.Right), OutputFolder+"/filteredintaaaaaa.fq"], stdout=f)
+    subprocess.call(["seqtk", "seq", "-L", str(args.Size), OutputFolder+"/filteredintaaaaaa.fq"], stdout=f)
     f.close()
 
     os.remove(OutputFolder+"/filteredintaaaaaa.fq")
