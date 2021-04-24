@@ -5,14 +5,10 @@ import os
 import glob
 import re
 from datetime import date
-from gooey import Gooey, GooeyParser
+import argparse
 import subprocess
 from pathlib import Path
 
-@Gooey(program_name='RefNAAP', 
-        default_size=(720, 900),
-        progress_regex=r"^progress: (?P<current>\d+)/(?P<total>\d+)$",
-        progress_expr="current / total * 100")
 
 def main():
     
@@ -24,17 +20,15 @@ def main():
     now = date.today()
     home = str(Path.home())
 
-    cli = GooeyParser(description="Reference Based Nanopore Amplicon Analysis Pipeline")
-    required_args = cli.add_argument_group("Input Output Location", gooey_options={'columns': 1, 'show_border': True})
-    required_args.add_argument('--InputFolder', help="Folder containing barcoded fastq", required=True, widget='DirChooser')
-    required_args.add_argument('--OutputFolder', help="Output Folder", required=False, default=f"{home}/rabiesrefnaap_results/output_{now}", widget='DirChooser')
+    cli = argparse.ArgumentParser()
+    cli.add_argument('-i', '--InputFolder', help="Folder containing barcoded fastq", required=True)
+    cli.add_argument('-o', '--OutputFolder', help=f"Output Folder. Default is {home}/rabiesrefnaap_results/output_{now}", required=False, default=f"{home}/rabiesrefnaap_results/output_{now}")
 
-    parser = cli.add_argument_group("Optional Arguments", gooey_options={'columns': 2, 'show_border': True})
-    parser.add_argument('--TopN', help="The top N reference sequences with the most depth are analyzed.", type=int, required=False, default=1)
-    parser.add_argument('--MinCov', help="Amplicon regions need a minimum of this average coverage number", type=int, required=False, default=1)
-    parser.add_argument('--threads', help="Number of threads. More is faster if your computer supports it", type=int, required=False, default=4)
-    parser.add_argument('--verbose', help = "Keep Intermediate Files", required=False, widget='BlockCheckbox', action='store_true', gooey_options={ 'checkbox_label': "Yes" })
-    parser.add_argument('--model', help="Basecall Model", required=False, type=str, default='r10_min_high_g303')
+    cli.add_argument('--TopN', help="The top N reference sequences with the most depth are analyzed. Default is 1.", type=int, required=False, default=1)
+    cli.add_argument('--MinCov', help="Amplicon regions need a minimum of this average coverage number. Default is 5.", type=int, required=False, default=5)
+    cli.add_argument('--threads', help="Number of threads. More is faster if your computer supports it. Default is 4.", type=int, required=False, default=4)
+    cli.add_argument('--verbose', help = "Keep Intermediate Files. Default is false.", required=False, default=4)
+    cli.add_argument('--model', help="Basecall Model", required=False, type=str, default='r10_min_high_g303')
     args = cli.parse_args()
 
 

@@ -1,6 +1,6 @@
 # Rabies Reference Based Nanopore Amplicon Analysis Pipeline (RabiesRefNAAP)
 
-This pipeline processes the rare, basecalled Nanopore reads generated from the Rabies Nanopore Sequencing protocol. It does the following steps:
+This pipeline processes the raw, basecalled Nanopore reads generated from the Rabies Nanopore Sequencing protocol developed in the CDC. It does the following steps:
 1. It trims the left and right ends of the reads by 50 basepairs, and filters out reads shorter than 50bp.
 2. It QCs the trimmed files using fastqc and multiqc to generate a quality report.
 3. It finds the coverage of the reads over the G and N regions of the Rabies reference files.
@@ -63,10 +63,19 @@ Activating your environment makes the software you installed in that environment
 ```
 conda activate rabiesrefnaap
 ```
-Run the code (change path if it is installed else where.)
+
+There are two versions of code. The GUI version and the CLI version.
+
+Run the GUI version (change path if it is installed else where.)
 ```
 ~/RabiesRefNAAP/RabiesRefNAAP.py
 ```
+
+Run the CLI version using the included test files (change path if it is installed else where.)
+```
+~/RabiesRefNAAP/RabiesRefNAAP_CLI.py -i ~/RabiesRefNAAP/fastq/
+```
+
 
 When you are finished running the workflow, exit out of your environment by running `conda deactivate`. Deactivating your environment exits out of your current environment and protects it from being modified by other programs. You can build as many environments as you want and enter and exit out of them. Each environment is separate from each other to prevent version or dependency clashes. The author recommands using Conda/Bioconda to manage your dependencies.
 
