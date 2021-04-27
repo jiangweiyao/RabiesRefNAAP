@@ -9,7 +9,7 @@ from gooey import Gooey, GooeyParser
 import subprocess
 from pathlib import Path
 
-@Gooey(program_name='RefNAAP', 
+@Gooey(program_name='RabiesRefNAAP', 
         default_size=(720, 900),
         progress_regex=r"^progress: (?P<current>\d+)/(?P<total>\d+)$",
         progress_expr="current / total * 100")
@@ -24,7 +24,7 @@ def main():
     now = date.today()
     home = str(Path.home())
 
-    cli = GooeyParser(description="Reference Based Nanopore Amplicon Analysis Pipeline")
+    cli = GooeyParser(description="Rabies Reference Based Nanopore Amplicon Analysis Pipeline")
     required_args = cli.add_argument_group("Input Output Location", gooey_options={'columns': 1, 'show_border': True})
     required_args.add_argument('--InputFolder', help="Folder containing barcoded fastq", required=True, widget='DirChooser')
     required_args.add_argument('--OutputFolder', help="Output Folder", required=False, default=f"{home}/rabiesrefnaap_results/output_{now}", widget='DirChooser')

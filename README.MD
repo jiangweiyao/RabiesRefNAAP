@@ -1,8 +1,8 @@
 # Rabies Reference Based Nanopore Amplicon Analysis Pipeline (RabiesRefNAAP)
 
 This pipeline processes the raw, basecalled Nanopore reads generated from the Rabies Nanopore Sequencing protocol developed in the CDC. It does the following steps:
-1. It trims the left and right ends of the reads by 50 basepairs, and filters out reads shorter than 50bp.
-2. It QCs the trimmed files using fastqc and multiqc to generate a quality report.
+1. It QCs the fastq files using fastqc and multiqc to generate a quality report.
+2. It trims the left and right ends of the reads by 25 basepairs, and filters out reads shorter than 50bp.
 3. It finds the coverage of the reads over the G and N regions of the Rabies reference files.
 4. It generates the sequence of Rabies coveraged by the reads using reference based assembly, gap fixing, and Medaka
 

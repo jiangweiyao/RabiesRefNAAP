@@ -30,7 +30,7 @@ def main():
 
     os.makedirs(OutputFolder, exist_ok=True)
 
-    minimap_cmd = subprocess.Popen(['minimap2', '-ax', 'map-ont', '-t', str(args.threads), local_path+'/Americas2.fasta', args.Input], stdout=subprocess.PIPE)
+    minimap_cmd = subprocess.Popen(['minimap2', '-ax', 'map-ont', '-t', str(args.threads), str(args.RefFile), args.Input], stdout=subprocess.PIPE)
     subprocess.call(['samtools', 'sort', '-o', OutputFolder+'/cacheoutput.bam'], stdin=minimap_cmd.stdout)
     subprocess.call(['samtools', 'index', OutputFolder+'/cacheoutput.bam'])
 
