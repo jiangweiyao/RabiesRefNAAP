@@ -16,7 +16,7 @@ And then run the attached script using the environment.
 
 ## Summary - How to run after installation.
 1. Activate conda environment - `conda activate rabiesrefnaap`
-2. Run the GUI - `~/RabiesRefNAAP/RabiesRefNAAP_GUI.py`
+2. Run the GUI - `~/RabiesRefNAAP/RabiesRefNAAP.py`
 3. Sample fastq data is in test folder
 4. Shut down your environment to protect it from modifications - `conda deactivate`
 
