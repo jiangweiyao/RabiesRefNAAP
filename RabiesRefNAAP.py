@@ -47,6 +47,10 @@ def main():
     print(files)
     OutputFolder = os.path.expanduser(args.OutputFolder)
 
+    f = open(f"{args.OutputFolder}/coverage_summary.txt", "w")
+    f.writelines(["filename", "\t", "reads", "\t", "mapped", "\t", "ncov", "\t", "gcov", "\t", "avelength"])
+    f.flush()
+
     for i in range(0, len(files)):
         filec = files[i]
 
@@ -61,16 +65,19 @@ def main():
 
         #Get coverage
         subprocess.check_output(['python', local_path+'/rabiescoverage.py', '-i', filec2, '-o', args.OutputFolder+'/coverage/'+base+"_coverage/"+base+"_coverage.txt", '-t', str(args.threads)])
-        subprocess.check_output(['cp', args.OutputFolder+'/coverage/'+base+"_coverage/"+base+"_coverage.txt", args.OutputFolder+'/'+base+"_coverage.txt"])
+        #subprocess.check_output(['cp', args.OutputFolder+'/coverage/'+base+"_coverage/"+base+"_coverage.txt", args.OutputFolder+'/'+base+"_coverage.txt"])
+        subprocess.Popen(['tail', '-n 1', args.OutputFolder+'/coverage/'+base+"_coverage/"+base+"_coverage.txt"], stdout=f)
+        f.write("\n")
+        f.flush()
 
         #Get assembly
         subprocess.check_output(['python', local_path+'/refnaap_cli.py', '-i', filec2, '-o', args.OutputFolder+'/assembly/'+base+"_assembly/", '-t', str(args.threads), '--TopN', str(args.TopN), '--MinCov', str(args.MinCov)])
         subprocess.check_output(['cp', args.OutputFolder+'/assembly/'+base+"_assembly/final_scaffold.fasta", args.OutputFolder+"/"+base+"_final_scaffold.fasta"])
 
 
-
         print("progress: {}/{}".format(i+1, len(files)))
 
+    f.close()
     
 
     if not args.verbose:
